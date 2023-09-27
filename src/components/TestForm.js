@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import PropTypes from 'prop-types'
 
 export default function TestForm(props) {
     const handleUpClick=()=>{
@@ -18,6 +19,15 @@ export default function TestForm(props) {
     const clearText=(event)=>{
         // console.log("HandleOnChange");
         setText("");
+    }
+    const handleCopy=()=>{
+        var text=document.getElementById("mybox");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
+    const handleExtraSpace=()=>{
+        var newText= text.split(/[  ]+/);
+        setText(newText.join(" "));
     }
     const speak = () => {
         let msg = new SpeechSynthesisUtterance(text);
@@ -41,23 +51,25 @@ export default function TestForm(props) {
     
   return (
     <>
-    <div className="container">
+    <div className="container" style={{color: props.mode === 'dark' ? 'white':'black'}}>
         <h1>{props.heading}</h1>
       <div className="mb-3">
-  <textarea className="form-control" id="mybox" value={text} onChange={handleOnChange} rows="8"></textarea>
+  <textarea className="form-control" style={{backgroundColor: (props.mode ==='dark') ? 'Grey':'White', 
+  color: props.mode === 'dark'?'white':'black'}} id="mybox" value={text} onChange={handleOnChange} rows="8"></textarea>
 </div> 
     <button className='btn btn-primary' onClick={handleUpClick}>Convert to Uppercase</button>
     <button className='btn btn-primary mx-2' onClick={handleLoClick}>Convert to Lowercase</button>
     <button className="btn btn-primary mx-2" onClick={clearText} >Clear</button>
-
+    <button className="btn btn-primary mx-2" onClick={handleCopy} >Copy</button>
+    <button className="btn btn-primary mx-2" onClick={handleExtraSpace} >RemoveExtraSpace</button>
 <button className="btn btn-primary mx-2 my-2"  onClick={speak} id="toggle" >Speak</button>
     </div>
-    <div className="container my-3" >
+    <div className="container my-3" style={{color: props.mode === 'dark' ? 'white':'black'}} >
         <h1> Your text summery</h1>
         <p>{text.split(" ").length}words and {text.length}characters</p>
         <p>{0.008 * text.split(" ").length } minutes takes to read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length>0? text:"Enter Something to preview it here"}</p>
     </div>
     </>
     
