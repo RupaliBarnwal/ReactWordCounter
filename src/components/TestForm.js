@@ -6,11 +6,13 @@ export default function TestForm(props) {
         // console.log("UpperCase was clicked" + text);
         let newText=text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to UpperCase", "Success")
     }
     const handleLoClick=()=>{
         // console.log("Lowercase was clicked" + text);
         let newText=text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to LowerCase", "Success")
     }
     const handleOnChange=(event)=>{
         // console.log("HandleOnChange");
@@ -19,15 +21,18 @@ export default function TestForm(props) {
     const clearText=(event)=>{
         // console.log("HandleOnChange");
         setText("");
+        props.showAlert("Text Cleared", "Success")
     }
     const handleCopy=()=>{
         var text=document.getElementById("mybox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        props.showAlert("Copied to Clipboard", "Success")
     }
     const handleExtraSpace=()=>{
         var newText= text.split(/[  ]+/);
         setText(newText.join(" "));
+        props.showAlert("Extra Spaces have been removed", "Success")
     }
     const speak = () => {
         let msg = new SpeechSynthesisUtterance(text);
