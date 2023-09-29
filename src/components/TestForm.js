@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 export default function TestForm(props) {
     const handleUpClick=()=>{
@@ -71,7 +71,7 @@ export default function TestForm(props) {
     </div>
     <div className="container my-3" style={{color: props.mode === 'dark' ? 'white':'black'}} >
         <h1> Your text summery</h1>
-        <p>{text.split(" ").length}words and {text.length}characters</p>
+        <p>{text.length>0?text.split(" ").length :0}words and {text.length}characters</p>
         <p>{0.008 * text.split(" ").length } minutes takes to read</p>
         <h2>Preview</h2>
         <p>{text.length>0? text:"Enter Something to preview it here"}</p>
