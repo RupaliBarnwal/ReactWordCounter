@@ -16,7 +16,21 @@ import {
 function App() {
   const[mode, setMode] = useState("light");
 
-  const toggleMode=()=>{
+    const removeBodyClasses=()=>{
+      document.body.classList.remove('bg-light')
+      document.body.classList.remove('bg-dark')
+      document.body.classList.remove('bg-warning')
+      document.body.classList.remove('bg-danger')
+      document.body.classList.remove('bg-success')
+    
+    }
+    const differentMode=(cls)=>{
+      removeBodyClasses();
+      console.log(cls)
+      document.body.classList.add('bg-'+cls)
+  }
+    const toggleMode=()=>{
+      removeBodyClasses();
     if(mode==='light'){
       setMode('dark')
       document.body.style.backgroundColor= '#46144b';
@@ -48,7 +62,7 @@ function App() {
   return (
     <>
     <Router>
-<Navbar title="Navbar1" mode={mode} toggleMode={toggleMode}/>
+<Navbar title="Navbar" mode={mode} toggleMode={toggleMode} differentMode={differentMode}/>
 
 <Alert alert={alert}/>
       <br/>
@@ -59,7 +73,7 @@ function App() {
       /users/home --->component-2 */}
       {/* if not used exact keyword, it will always render to component1 */}
           <Route exact path="/about">
-            <About />
+            <About  mode={mode} />
           </Route>
           <Route exact path="/">
           <TestForm showAlert={showAlert} heading="Enter the text to analyse" mode={mode} />
